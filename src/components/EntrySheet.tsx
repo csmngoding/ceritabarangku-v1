@@ -1,16 +1,40 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Cloud, Settings, Wrench, ArrowRight, Camera, MapPin, Check } from 'lucide-react';
+import { X, Cloud, Settings, Wrench, ArrowRight, Camera, MapPin, Check, Calendar, ChevronRight, Info } from 'lucide-react';
 import { Badge, cn } from '@blinkdotnew/ui';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { mockBarang } from '../lib/mock-data';
+import { DatePicker } from './DatePicker';
+import { LocationPicker } from './LocationPicker';
 
 interface EntrySheetProps {
   isOpen: boolean;
   onClose: () => void;
+  preselectedBarangId?: string | null;
 }
 
-export function EntrySheet({ isOpen, onClose }: EntrySheetProps) {
-  const [step, setStep] = useState<'type' | 'form'>('type');
+export function EntrySheet({ isOpen, onClose, preselectedBarangId }: EntrySheetProps) {
+  const [step, setStep] = useState<'barang_select' | 'type' | 'form'>('barang_select');
+  const [selectedBarangId, setSelectedBarangId] = useState<string | null>(null);
   const [selectedType, setSelectedType] = useState<string | null>(null);
+  const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().split('T')[0]);
+  const [selectedLocation, setSelectedLocation] = useState<string>('');
+
+  // Filter items owned by user-1 (the primary user for this proto)
+  const myItems = mockBarang.filter(b => b.ownerId === 'user-1');
+  const activeBarang = mockBarang.find(b => b.id === (selectedBarangId || preselectedBarangId));
+
+  useEffect(() => {
+    if (isOpen) {
+      if (preselectedBarangId) {
+        setSelectedBarangId(preselectedBarangId);
+        setStep('type');
+      } else {
+        setSelectedBarangId(null);
+        setStep('barang_select');
+      }
+      setSelectedType(null);
+    }
+  }, [isOpen, preselectedBarangId]);
 
   const entryTypes = [
     { id: 'MEMORI', icon: Cloud, label: 'MEMORI', color: 'bg-primary text-primary-foreground', desc: 'Petualangan & kenangan' },
@@ -53,16 +77,60 @@ export function EntrySheet({ isOpen, onClose }: EntrySheetProps) {
           >
             <div className="mx-auto mb-6 h-1 w-12 rounded-full bg-border" />
             
-            <div className="mb-8 flex items-center justify-between">
-              <h2 className="text-xl font-black uppercase tracking-tight">
-                {step === 'type' ? 'Tambah Cerita' : `Baru: ${selectedType}`}
-              </h2>
-              <button onClick={reset} className="rounded-full bg-muted p-2 text-muted-foreground">
+            <div className="mb-6 flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-black uppercase tracking-tight">
+                  {step === 'barang_select' && 'Pilih Barang'}
+                  {step === 'type' && 'Kategori Cerita'}
+                  {step === 'form' && `Baru: ${selectedType}`}
+                </h2>
+                {activeBarang && step !== 'barang_select' && (
+                  <div className="mt-1 flex items-center gap-1.5 opacity-60">
+                    <div className="h-3 w-3 rounded-full bg-secondary" />
+                    <span className="text-[10px] font-bold uppercase tracking-widest">{activeBarang.name}</span>
+                  </div>
+                )}
+              </div>
+              <button onClick={reset} className="rounded-full bg-muted p-2 text-muted-foreground transition-colors hover:bg-muted/80">
                 <X className="h-5 w-5" />
               </button>
             </div>
 
-            {step === 'type' ? (
+            {step === 'barang_select' && (
+              <div className="space-y-3">
+                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-4">Pilih barang yang ingin kamu ceritakan hari ini:</p>
+                <div className="grid grid-cols-1 gap-3 max-h-[400px] overflow-y-auto pr-2 no-scrollbar">
+                  {myItems.map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => {
+                        setSelectedBarangId(item.id);
+                        setStep('type');
+                      }}
+                      className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-sm border border-border/10 transition-all hover:border-secondary/40 active:scale-[0.98]"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="h-12 w-12 overflow-hidden rounded-xl border border-border/50">
+                          <img src={item.images[0]} alt={item.name} className="h-full w-full object-cover" />
+                        </div>
+                        <div className="text-left">
+                          <p className="text-sm font-bold uppercase tracking-tight">{item.name}</p>
+                          <p className="text-[10px] font-mono text-muted-foreground uppercase">{item.barangId}</p>
+                        </div>
+                      </div>
+                      <ChevronRight className="h-5 w-5 text-muted-foreground/40" />
+                    </button>
+                  ))}
+                  
+                  <button className="flex items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-border p-5 text-muted-foreground transition-colors hover:bg-muted/20">
+                    <Info className="h-4 w-4" />
+                    <span className="text-[10px] font-black uppercase tracking-widest">Daftarkan Barang Baru</span>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {step === 'type' && (
               <div className="grid grid-cols-2 gap-4">
                 {entryTypes.map((type) => (
                   <button
@@ -80,7 +148,9 @@ export function EntrySheet({ isOpen, onClose }: EntrySheetProps) {
                   </button>
                 ))}
               </div>
-            ) : (
+            )}
+
+            {step === 'form' && (
               <div className="space-y-6">
                 <div className="space-y-1.5">
                   <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Narasi Cerita</label>
@@ -91,20 +161,16 @@ export function EntrySheet({ isOpen, onClose }: EntrySheetProps) {
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
-                   <div className="space-y-1.5">
-                     <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Tanggal</label>
-                     <div className="flex h-11 items-center gap-2 rounded-xl bg-muted/30 px-3 text-xs font-bold uppercase">
-                       <Calendar className="h-4 w-4 text-muted-foreground" />
-                       17 April 2026
-                     </div>
-                   </div>
-                   <div className="space-y-1.5">
-                     <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Lokasi</label>
-                     <div className="flex h-11 items-center gap-2 rounded-xl bg-muted/30 px-3 text-xs font-bold text-muted-foreground uppercase">
-                       <MapPin className="h-4 w-4" />
-                       Pilih Tempat
-                     </div>
-                   </div>
+                    <DatePicker 
+                      label="Tanggal"
+                      value={selectedDate}
+                      onChange={setSelectedDate}
+                    />
+                    <LocationPicker
+                      label="Lokasi"
+                      value={selectedLocation}
+                      onChange={setSelectedLocation}
+                    />
                 </div>
 
                 <div className="space-y-1.5">

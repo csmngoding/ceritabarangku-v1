@@ -1,0 +1,356 @@
+{
+  "meta": {
+    "source_reference": "twotwo-official.com (live, fetched April 2026) + screenshot cosmos_1214980685.jpeg",
+    "brand_applied_to": "CeritaBarangku.com",
+    "version": "2.0.0",
+    "notes": "TWOTWO is a Shopify-based Social Athletics brand — minimal navigation, editorial product grid, strong single-hero sections, #SocialAthletics UGC wall, clean grotesque typography. Design language adapted: high negative space, warm linen backgrounds, dual accent system replacing single chartreuse."
+  },
+
+  "color_palette": {
+    "description": "Warm off-white base with two high-contrast accent colors — Reef (light-lime) and Dark Burgundy (deep-red) — used as a binary system for heritage and depth",
+    "tokens": {
+      "background_primary":      { "hex": "#F5F0E8", "role": "Page background — warm off-white linen" },
+      "background_secondary":    { "hex": "#E8E2D9", "role": "Card surfaces, secondary sections" },
+      "background_dark":         { "hex": "#0E0D1A", "role": "Inverted sections, modals, dark cards" },
+      "accent_reef":              { "hex": "#D3FCA0", "rgb": "rgb(211,252,160)", "role": "Editorial hero blocks, Verified badge bg, Memori entry, success states, FAB icon" },
+      "accent_dark_burgundy":     { "hex": "#801004", "rgb": "rgb(128,16,4)", "role": "Primary buttons, links, active nav, Servis entries, trust indicators" },
+      "text_on_reef":             { "hex": "#0E0D1A", "wcag": "12:1 AAA", "role": "Dark text on Reef background" },
+      "text_on_burgundy":         { "hex": "#D3FCA0", "wcag": "5.5:1 AA", "role": "Reef text on Dark Burgundy background" },
+      "text_primary":            { "hex": "#111111", "role": "Body copy, headings on light backgrounds" },
+      "text_secondary":          { "hex": "#666666", "role": "Captions, metadata, timestamps" },
+      "text_disabled":           { "hex": "#AAAAAA", "role": "Placeholder, disabled states" },
+      "border_subtle":           { "hex": "#D4CCBF", "role": "Card borders, dividers, input outlines" },
+      "surface_white":           { "hex": "#FFFFFF", "role": "Input fields, elevated cards" },
+      "entry_memory":            { "hex": "#D3FCA0", "role": "MEMORI entry type color" },
+      "entry_mod":               { "hex": "#111111", "role": "MODIFIKASI entry type color" },
+      "entry_service":           { "hex": "#801004", "role": "SERVIS entry type color" },
+      "entry_transfer":          { "hex": "#888888", "role": "TRANSFER entry type color" },
+      "entry_milestone":         { "hex": "#E8C9F0", "role": "MILESTONE entry type color — soft lavender" }
+    },
+    "dual_accent_rules": [
+      "Reef (#D3FCA0) = emotional, community, memory, fresh, achievement — editorial blocks, Memori, Verified badge",
+      "Dark Burgundy (#801004) = trust, heritage, official, action — primary buttons, Servis records, links",
+      "Never place both accents on same component or directly adjacent without neutral separator",
+      "Maximum 1 accent color visible per viewport scroll position",
+      "WCAG contrast safe between the two — safe to use as direct text/background pair",
+      "Dark mode: background swaps to #0E0D1A; both accents remain visually identical"
+    ]
+  },
+
+  "typography": {
+    "description": "Cabinet Grotesk from Fontshare — geometric grotesque with warmth and personality. All weights 100–900.",
+    "font_family": {
+      "primary": "'Cabinet Grotesk', sans-serif",
+      "import_url": "https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@100,200,300,400,500,600,700,800,900&display=swap",
+      "weights": [100, 200, 300, 400, 500, 600, 700, 800, 900],
+      "fallback": "'-apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif'"
+    },
+    "mono_accent": {
+      "family": "'JetBrains Mono', monospace",
+      "usage": "BarangID codes (CB-XXXX-XXXX), NFC identifiers, version strings",
+      "size": "12px", "weight": 500, "letter_spacing": "0.05em"
+    },
+    "scale": {
+      "display": {
+        "size": "clamp(40px, 10vw, 88px)", "weight": 800,
+        "line_height": "0.95", "letter_spacing": "-0.03em",
+        "usage": "Hero headlines, major landing sections"
+      },
+      "h1": {
+        "size": "clamp(28px, 6vw, 52px)", "weight": 700,
+        "line_height": "1.1", "letter_spacing": "-0.02em",
+        "usage": "Page titles, barang names on BarangPage"
+      },
+      "h2": {
+        "size": "clamp(20px, 3vw, 32px)", "weight": 700,
+        "line_height": "1.2", "letter_spacing": "-0.01em",
+        "usage": "Section headers, modal titles"
+      },
+      "h3": {
+        "size": "18px", "weight": 600,
+        "line_height": "1.3", "letter_spacing": "0",
+        "usage": "Card headings, entry titles in timeline"
+      },
+      "body_large": {
+        "size": "16px", "weight": 400,
+        "line_height": "1.65", "letter_spacing": "0.005em",
+        "usage": "Main body, narrative entry text"
+      },
+      "body": {
+        "size": "14px", "weight": 400,
+        "line_height": "1.6", "letter_spacing": "0.01em",
+        "usage": "Secondary text, metadata"
+      },
+      "label": {
+        "size": "11px", "weight": 600,
+        "line_height": "1", "letter_spacing": "0.1em",
+        "text_transform": "uppercase",
+        "usage": "Entry type chips, status badges, nav items, price labels"
+      },
+      "vertical_label": {
+        "transform": "rotate(-90deg)",
+        "size": "11px", "weight": 600,
+        "letter_spacing": "0.12em", "text_transform": "uppercase",
+        "usage": "Barang card right-edge rotated label — editorial TWOTWO signature"
+      }
+    },
+    "rules": [
+      "Cabinet Grotesk 800 reserved for display/hero only — powerful, use sparingly",
+      "Body always weight 400 — legible, warm",
+      "Uppercase labels always weight 600, never 400 or 700",
+      "Max 2 weights per component",
+      "Line-height tightens as size increases: display 0.95 → h1 1.1 → body 1.65"
+    ]
+  },
+
+  "layout": {
+    "description": "Mobile-first single-column feed expanding to editorial grid on desktop. TWOTWO pattern: large hero → product scroll → editorial color block → UGC/community wall.",
+    "mobile_first": true,
+    "breakpoints": {
+      "sm":  "375px", "md": "768px", "lg": "1024px",
+      "xl":  "1280px", "2xl": "1440px"
+    },
+    "grid": {
+      "mobile":  { "columns": 4, "gutter": "12px", "margin": "16px" },
+      "tablet":  { "columns": 8, "gutter": "16px", "margin": "24px" },
+      "desktop": { "columns": 12, "gutter": "20px", "margin": "clamp(24px, 4vw, 60px)" }
+    },
+    "max_width": "1400px",
+    "page_patterns": {
+      "home_feed":    "Vertical card feed, full-width mobile, 2-col tablet, masonry 3-col desktop",
+      "barang_page":  "Hero image → sticky info bar → tab switcher → timeline feed",
+      "explore":      "Sticky filter bar → masonry grid",
+      "entry_form":   "Single-column form, full-width",
+      "profile":      "Header banner → barang grid"
+    }
+  },
+
+  "components": {
+    "navigation_mobile": {
+      "type": "Bottom tab bar — fixed, full width",
+      "height": "56px + env(safe-area-inset-bottom)",
+      "background": "#FFFFFF",
+      "border_top": "1px solid #D4CCBF",
+      "tabs": ["Beranda", "Explore", "Tambah (+)", "Notifikasi", "Profil"],
+      "active_color": "#801004",
+      "inactive_color": "#AAAAAA",
+      "fab_center_button": {
+        "icon": "+",
+        "background": "#801004",
+        "icon_color": "#D3FCA0",
+        "size": "52px",
+        "border_radius": "50%",
+        "shadow": "0 4px 16px rgba(65,96,232,0.35)",
+        "position": "elevated above tab bar, -14px from top"
+      }
+    },
+    "navigation_desktop": {
+      "height": "60px",
+      "background": "transparent",
+      "logo_left": true,
+      "links_center": ["Beranda", "Explore", "Koleksi Saya"],
+      "actions_right": ["Notifikasi", "Avatar"],
+      "border": "none"
+    },
+    "barang_card": {
+      "structure": ["photo 3:4", "rotated_label right edge", "category_chip top-left", "status_badge top-right", "name bottom-left", "condition bottom-right"],
+      "photo_bg": "#E8E2D9",
+      "border_radius": "16px",
+      "verified_border": "2px solid #801004",
+      "hover": "scale(1.02) 200ms ease"
+    },
+    "feed_entry_card": {
+      "structure": ["barang_mini_header", "entry_type_chip + timestamp", "content_text", "photo_grid optional", "reaction_bar"],
+      "border_radius": "12px",
+      "padding": "16px",
+      "border": "1px solid #D4CCBF",
+      "background": "#FFFFFF",
+      "entry_chips": {
+        "MEMORI":     { "bg": "#D3FCA0", "text": "#0E0D1A" },
+        "MODIFIKASI": { "bg": "#111111", "text": "#FFFFFF" },
+        "SERVIS":     { "bg": "#801004", "text": "#D3FCA0" },
+        "TRANSFER":   { "bg": "#888888", "text": "#FFFFFF" },
+        "MILESTONE":  { "bg": "#E8C9F0", "text": "#111111" }
+      }
+    },
+    "timeline_connector": {
+      "line": "2px solid #D4CCBF, left-aligned at 24px from edge",
+      "dot_size": "10px circle",
+      "dot_colors_by_type": {
+        "MEMORI": "#D3FCA0", "MODIFIKASI": "#111111",
+        "SERVIS": "#801004", "TRANSFER": "#888888", "MILESTONE": "#E8C9F0"
+      }
+    },
+    "status_badge": {
+      "self_claimed": { "bg": "#EEEEEE", "text": "#888888", "label": "Self-Claimed" },
+      "verified":     { "bg": "#D3FCA0", "text": "#0E0D1A", "label": "✓ Verified" },
+      "transferred":  { "bg": "#E8E2D9", "text": "#555555", "label": "Pindah Tangan" }
+    },
+    "button_primary": {
+      "bg": "#801004", "text": "#D3FCA0",
+      "border_radius": "999px", "padding": "14px 28px",
+      "font_size": "14px", "font_weight": 600, "letter_spacing": "0.02em",
+      "hover": { "bg": "#1a13b0", "transform": "translateY(-1px)" }
+    },
+    "button_secondary": {
+      "bg": "transparent", "text": "#801004",
+      "border": "2px solid #801004", "border_radius": "999px",
+      "hover": { "bg": "#801004", "text": "#D3FCA0" }
+    },
+    "input_field": {
+      "bg": "#FFFFFF", "border": "1.5px solid #D4CCBF",
+      "border_radius": "10px", "padding": "14px 16px",
+      "font": "16px Cabinet Grotesk 400",
+      "focus_border": "#801004",
+      "focus_shadow": "0 0 0 3px rgba(65,96,232,0.15)"
+    },
+    "photo_gallery": {
+      "1_photo": "full width, 4:3",
+      "2_photos": "2-col equal, 1:1 each",
+      "3_photos": "1 large left (2:3) + 2 stacked right",
+      "4_plus": "2×2 grid, +N overlay on last",
+      "gap": "4px", "border_radius": "10px"
+    },
+    "bottom_sheet": {
+      "border_radius": "20px 20px 0 0",
+      "background": "#FFFFFF",
+      "handle": "32×4px, #D4CCBF, centered, mt-12px"
+    },
+    "barang_id_chip": {
+      "font": "JetBrains Mono 500 12px",
+      "bg": "#E8E2D9", "text": "#555555",
+      "border_radius": "6px", "padding": "4px 8px",
+      "example": "CB-A3F2-9K1M"
+    }
+  },
+
+  "page_layouts_mobile": {
+    "home_feed": [
+      "56px sticky top bar: logo left | search + notif icons right",
+      "80px stories row: horizontal scroll of followed barang avatars with update rings",
+      "Feed cards: full-width vertical stack, 12px gap",
+      "56px fixed bottom tab bar"
+    ],
+    "barang_page": [
+      "Full-width hero image gallery, swipeable, 4:3",
+      "Sticky info section: barang name + BarangID chip + status badge + follow CTA",
+      "Tab switcher sticky: CeritaFeed | Galeri | Info",
+      "Timeline feed: entries with left connector line",
+      "FAB bottom-right: Tambah Cerita (owner only), Persian Blue + Reef icon"
+    ],
+    "ceritas_feed": [
+      "Filter chips horizontal scroll: Semua | MEMORI | MODIFIKASI | SERVIS | TRANSFER",
+      "Infinite scroll feed cards",
+      "Pull-to-refresh"
+    ],
+    "explore": [
+      "Full-width search bar at top",
+      "Filter chips: Kategori | Brand | Kota | Era",
+      "2-column masonry barang card grid"
+    ],
+    "add_entry_form": [
+      "Back arrow + 'Tambah Cerita' title",
+      "Entry type selector chips row",
+      "Form fields stacked full-width",
+      "Photo upload area with preview grid",
+      "Sticky bottom: full-width Royal Blue pill button 'Publikasikan'"
+    ]
+  },
+
+  "imagery": {
+    "style": "Object-hero — warm studio, generous negative space. TWOTWO-inspired: product floats with room to breathe.",
+    "catalog_bg": "#E8E2D9",
+    "aspect_ratios": {
+      "barang_card": "3:4", "hero": "16:9 or full-bleed",
+      "entry_single": "4:3", "avatar_barang": "1:1 circle"
+    },
+    "ugc_section": "Horizontal auto-scroll or masonry grid of community photos — mirrors TWOTWO #SocialAthletics wall"
+  },
+
+  "motion": {
+    "philosophy": "Swift, purposeful, native-feeling on mobile",
+    "durations": {
+      "instant": "80ms", "fast": "160ms", "normal": "280ms", "slow": "480ms"
+    },
+    "easings": {
+      "standard":   "cubic-bezier(0.4, 0, 0.2, 1)",
+      "decelerate": "cubic-bezier(0, 0, 0.2, 1)",
+      "spring":     "cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+    },
+    "patterns": {
+      "page_enter":       "translateY(16px)→0, opacity 0→1, 280ms decelerate",
+      "card_stagger":     "each card +40ms delay, translateY(12px)→0",
+      "sheet_open":       "translateY(100%)→0, 320ms decelerate",
+      "timeline_entry":   "translateX(-8px)→0, opacity 0→1 on scroll-enter",
+      "verified_badge":   "scale(0.8)→1.1→1, 400ms spring — one-time when Verified"
+    },
+    "reduce_motion": "All transforms and transitions >100ms disabled under prefers-reduced-motion"
+  },
+
+  "spacing": {
+    "base": "4px",
+    "scale": {
+      "1":"4px","2":"8px","3":"12px","4":"16px","5":"20px",
+      "6":"24px","8":"32px","10":"40px","12":"48px","16":"64px","20":"80px"
+    },
+    "mobile_page_margin": "16px",
+    "card_padding": "16px mobile / 20px desktop",
+    "section_gap": "48px mobile / 80px desktop",
+    "bottom_nav_height": "56px + env(safe-area-inset-bottom)"
+  },
+
+  "iconography": {
+    "library": "Lucide React",
+    "stroke_width": "1.5px",
+    "sizes": { "sm":"16px","md":"20px","lg":"24px","xl":"32px" },
+    "key_icons": {
+      "memori":"Camera","modifikasi":"Wrench","servis":"ShieldCheck",
+      "transfer":"ArrowRight","milestone":"Star","follow":"Heart",
+      "verified":"BadgeCheck","plakat":"Tag","barang_id":"Hash","add":"Plus"
+    }
+  },
+
+  "brand_signature_moves": [
+    "Rotated vertical label text on barang cards — direct TWOTWO editorial reference",
+    "Reef (#D3FCA0) block as editorial section opener — never decorative filler",
+    "Dark Burgundy (#801004) exclusively for trust/action moments",
+    "Timeline connector line as visual metaphor for a barang's life journey",
+    "BarangID in JetBrains Mono as permanent identity anchor",
+    "Entry type chips as bold color-coded pills — instantly scannable feed"
+  ],
+
+  "avoid": [
+    "Pure white backgrounds — always warm linen #F5F0E8",
+    "Both accent colors in same viewport",
+    "Drop shadows heavier than: 0 2px 8px rgba(0,0,0,0.08)",
+    "Border-radius > 20px",
+    "Center-aligned body copy",
+    "Auto-playing video without user gesture",
+    "More than 2 font weights in one component",
+    "Generic Inter/Roboto/Arial fallback as primary font"
+  ],
+
+  "dark_mode": {
+    "supported": true,
+    "background_primary":   "#0E0D1A",
+    "background_secondary": "#1A1830",
+    "text_primary":         "#F5F0E8",
+    "text_secondary":       "#9994AA",
+    "border_subtle":        "#2E2A45",
+    "surface_white":        "#1F1D30",
+    "accent_sulu_unchanged":          "#D3FCA0",
+    "accent_royal_blue_unchanged":     "#801004"
+  },
+
+  "accessibility": {
+    "wcag_target": "AA minimum, AAA on primary text pairings",
+    "contrast_ratios": {
+      "sulu_on_dark_text": "8.2:1 AAA",
+      "blue_on_sulu":     "5.1:1 AA",
+      "black_on_linen":   ">12:1 AAA"
+    },
+    "focus_indicator":   "3px solid #801004, offset 2px",
+    "touch_target_min":  "44×44px",
+    "font_scaling":      "rem/clamp units — respects user font size preference"
+  }
+}

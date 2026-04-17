@@ -27,6 +27,13 @@ export function BarangCard({ barang }: BarangCardProps) {
             </Badge>
           </div>
         )}
+        {barang.status === 'Pending-Verification' && (
+          <div className="absolute left-2 top-2">
+            <Badge className="bg-muted px-2 py-0.5 text-[8px] font-black uppercase tracking-widest text-muted-foreground border border-border/50">
+              In Process
+            </Badge>
+          </div>
+        )}
 
         <div className="p-3">
           <div className="flex items-start justify-between">

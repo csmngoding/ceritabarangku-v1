@@ -9,6 +9,20 @@ module.exports = {
   ],
   theme: {
     extend: {
+      // ── Spacing ────────────────────────────────────────────────────────────
+      spacing: {
+        '4xs': '0.125rem', // 2px
+        '3xs': '0.25rem',  // 4px
+        '2xs': '0.5rem',   // 8px
+        'xs': '0.75rem',   // 12px
+        'sm': '1rem',      // 16px
+        'md': '1.5rem',    // 24px
+        'lg': '2rem',      // 32px
+        'xl': '3rem',      // 48px
+        '2xl': '4rem',     // 64px
+        '3xl': '6rem',     // 96px
+      },
+
       // ── Border radius — must match @blinkdotnew/ui's tailwind.config.ts ──
       borderRadius: {
         sm:   'var(--radius-sm)',

@@ -3,6 +3,9 @@ import { Heart, MessageSquare, Share2, Verified } from 'lucide-react';
 import { StoryEntry, mockBarang, mockUsers, EntryType } from '../lib/mock-data';
 import { formatDistanceToNow } from 'date-fns';
 import { id } from 'date-fns/locale';
+import { Link } from '@tanstack/react-router';
+import { useState } from 'react';
+import { ShareSheet } from './SocialSheets';
 
 interface FeedCardProps {
   entry: StoryEntry;
@@ -13,20 +16,36 @@ const typeColors: Record<EntryType, string> = {
   MODIFIKASI: 'bg-amber-100 text-amber-900 border-amber-200',
   SERVIS: 'bg-secondary/10 text-secondary border-secondary/20',
   TRANSFER: 'bg-indigo-100 text-indigo-900 border-indigo-200',
+  PASSPORT: 'bg-emerald-100 text-emerald-900 border-emerald-300',
 };
 
 export function FeedCard({ entry }: FeedCardProps) {
   const barang = mockBarang.find((b) => b.id === entry.barangId);
   const user = mockUsers[entry.authorId];
+  
+  const [liked, setLiked] = useState(entry.likes.includes('user-1')); // Mock active user as user-1
+  const [likesCount, setLikesCount] = useState(entry.likes.length);
+  const [isShareSheetOpen, setIsShareSheetOpen] = useState(false);
 
   if (!barang) return null;
+
+  const handleLike = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (liked) {
+      setLikesCount(prev => prev - 1);
+    } else {
+      setLikesCount(prev => prev + 1);
+    }
+    setLiked(!liked);
+  };
 
   return (
     <Card className="mb-4 overflow-hidden border-none bg-white shadow-sm transition-all hover:shadow-md">
       {/* Header */}
       <div className="flex items-center justify-between p-4 pb-2">
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-10 overflow-hidden rounded-full bg-muted">
+        <Link to="/barang/$id" params={{ id: barang.id }} className="flex items-center gap-3 group">
+          <div className="h-10 w-10 overflow-hidden rounded-full bg-muted transition-transform group-hover:scale-105">
             <img 
               src={barang.images[0]} 
               alt={barang.name} 
@@ -35,7 +54,7 @@ export function FeedCard({ entry }: FeedCardProps) {
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <h3 className="text-sm font-bold uppercase leading-tight tracking-tight">
+              <h3 className="text-sm font-bold uppercase leading-tight tracking-tight group-hover:text-secondary transition-colors">
                 {barang.name}
               </h3>
               {barang.status === 'Verified' && (
@@ -46,7 +65,7 @@ export function FeedCard({ entry }: FeedCardProps) {
               {barang.barangId}
             </p>
           </div>
-        </div>
+        </Link>
         <div className="text-right">
           <p className="text-[10px] uppercase tracking-tighter text-muted-foreground">
             {formatDistanceToNow(new Date(entry.date), { addSuffix: true, locale: id })}
@@ -94,19 +113,34 @@ export function FeedCard({ entry }: FeedCardProps) {
       {/* Footer / Actions */}
       <div className="flex items-center justify-between border-t border-border/50 p-4">
         <div className="flex items-center gap-4">
-          <button className="flex items-center gap-1.5 text-muted-foreground transition-colors hover:text-secondary">
-            <Heart className="h-4 w-4" />
-            <span className="text-xs font-bold uppercase tracking-widest">12</span>
+          <button 
+            onClick={handleLike}
+            className={cn(
+              "flex items-center gap-1.5 transition-colors hover:text-secondary",
+              liked ? "text-secondary" : "text-muted-foreground"
+            )}
+          >
+            <Heart className={cn("h-4 w-4", liked && "fill-secondary")} />
+            <span className="text-xs font-bold uppercase tracking-widest">{likesCount}</span>
           </button>
-          <button className="flex items-center gap-1.5 text-muted-foreground transition-colors hover:text-secondary">
+          <Link 
+            to="/story/$id" 
+            params={{ id: entry.id }}
+            className="flex items-center gap-1.5 text-muted-foreground transition-colors hover:text-secondary"
+          >
             <MessageSquare className="h-4 w-4" />
-            <span className="text-xs font-bold uppercase tracking-widest">3</span>
-          </button>
+            <span className="text-xs font-bold uppercase tracking-widest">{entry.comments.length}</span>
+          </Link>
         </div>
-        <button className="text-muted-foreground transition-colors hover:text-secondary">
+        <button 
+          onClick={() => setIsShareSheetOpen(true)}
+          className="text-muted-foreground transition-colors hover:text-secondary"
+        >
           <Share2 className="h-4 w-4" />
         </button>
       </div>
+      
+      <ShareSheet isOpen={isShareSheetOpen} onClose={() => setIsShareSheetOpen(false)} storyId={entry.id} />
     </Card>
   );
 }
